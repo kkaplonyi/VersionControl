@@ -22,6 +22,7 @@ namespace UserMaintenance
             label1.Text = Resource.FullName;
             button2.Text = Resource.ExportToFile;
             button1.Text = Resource.Add;
+            button3.Text = Resource.Delete;
 
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
@@ -55,6 +56,16 @@ namespace UserMaintenance
                 }
                 sw.Close();
                 FileST.Close();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var todel = users.Where(a => a.FullName == textBox1.Text).ToList();
+
+            foreach (User item in todel)
+            {
+                users.Remove(item);
             }
         }
     }
