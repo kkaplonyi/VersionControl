@@ -48,7 +48,7 @@ namespace Week04_excel
                 xlSheet = xlWB.ActiveSheet;
 
                 // Tábla létrehozása
-                //CreateTable(); // Ennek megírása a következő feladatrészben következik
+                CreateTable(); // Ennek megírása a következő feladatrészben következik
 
                 // Control átadása a felhasználónak
                 xlApp.Visible = true;
@@ -82,9 +82,9 @@ namespace Week04_excel
 
             return ExcelCoordinate;
         }
-        public void CreateTable()
+        private void CreateTable()
         {
-            string[] headers = new string[] {
+             string[] headers = new string[] {
                                              "Kód",
                                              "Eladó",
                                              "Oldal",
@@ -122,9 +122,11 @@ namespace Week04_excel
                 
             
         }
-        public void FormatTable()
+        private void FormatTable()
         {
-            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            int lastRowID = xlSheet.UsedRange.Rows.Count;
+            int lastColID = xlSheet.UsedRange.Columns.Count;
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, lastColID));
             headerRange.Font.Bold = true;
             headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
             headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -132,6 +134,18 @@ namespace Week04_excel
             headerRange.RowHeight = 40;
             headerRange.Interior.Color = Color.LightBlue;
             headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            
+            Excel.Range tableRange = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID, lastColID));
+            tableRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range firstColRange = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID, 1));
+            firstColRange.Font.Bold = true;
+            firstColRange.Interior.Color = Color.LightYellow;
+
+            Excel.Range lastColRange = xlSheet.get_Range(GetCell(1, lastColID), GetCell(lastRowID, lastColID));
+            lastColRange.Interior.Color = Color.LightGreen;
+            lastColRange.NumberFormat = "#,##";
         }
     }
         
