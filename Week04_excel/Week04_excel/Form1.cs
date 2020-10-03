@@ -27,6 +27,7 @@ namespace Week04_excel
             InitializeComponent();
             LoadData();
             CreateExcel();
+            FormatTable();
         }    
 
         private void LoadData()
@@ -110,7 +111,7 @@ namespace Week04_excel
                 values[c, 5] = item.NumberOfRooms;
                 values[c, 6] = item.FloorArea;
                 values[c, 7] = item.Price;
-                values[c, 8] = "=" + GetCell(c, 8) + '/' + GetCell(c, 7);
+                values[c, 8] = "=" + GetCell((c+2), 8) + '/' + GetCell((c+2), 7);
                 
                     
                 c++;
@@ -139,13 +140,13 @@ namespace Week04_excel
             Excel.Range tableRange = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID, lastColID));
             tableRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
 
-            Excel.Range firstColRange = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID, 1));
+            Excel.Range firstColRange = xlSheet.get_Range(GetCell(2, 1), GetCell(lastRowID, 1));
             firstColRange.Font.Bold = true;
             firstColRange.Interior.Color = Color.LightYellow;
 
-            Excel.Range lastColRange = xlSheet.get_Range(GetCell(1, lastColID), GetCell(lastRowID, lastColID));
+            Excel.Range lastColRange = xlSheet.get_Range(GetCell(2, lastColID), GetCell(lastRowID, lastColID));
             lastColRange.Interior.Color = Color.LightGreen;
-            lastColRange.NumberFormat = "#,##";
+            lastColRange.NumberFormat = "#.##";
         }
     }
         
