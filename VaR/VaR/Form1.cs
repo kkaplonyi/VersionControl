@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VaR.Entities;
+using System.IO;
 
 namespace VaR
 {
@@ -16,6 +17,7 @@ namespace VaR
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+        List<decimal> Nyereségek = new List<decimal>();
 
         public Form1()
         {
@@ -24,7 +26,7 @@ namespace VaR
             dataGridView1.DataSource = Ticks;
             CreatePortfolio();
 
-            List<decimal> Nyereségek = new List<decimal>();
+            
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -64,6 +66,36 @@ namespace VaR
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var nyereségekRendezve = (from x in Nyereségek
+                                      orderby x
+                                      select x)
+                                .ToList();
+
+            int i = 0;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "txt";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Stream FileST = sfd.OpenFile();
+                StreamWriter sw = new StreamWriter(FileST);
+
+                sw.WriteLine("Időszak, Nyereség");
+                foreach (var x in nyereségekRendezve)
+                {
+
+                    sw.WriteLine(i + "; " + x);
+                    i++;
+                }
+
+                sw.Close();
+                FileST.Close();
+
+            }
         }
     }
 }
