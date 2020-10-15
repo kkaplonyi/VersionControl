@@ -16,12 +16,25 @@ namespace WebService
 {
     public partial class Form1 : Form
     {
-        string result { get; set; }
+        
+        
+        RichTextBox rtb1 = new RichTextBox();
+        RichTextBox rtb2 = new RichTextBox();
         BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<currs> Currencies = new BindingList<currs>();
+        public class currs
+        {
+            public string curr2 { get; set; }
+        }
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.DataSource = Rates;
+            GetCurrs();
+            comboBox1.DataSource = Currencies;
             RefreshData();
+            Console.WriteLine();
+            
 
         }
         public void RefreshData()
@@ -29,28 +42,51 @@ namespace WebService
             Rates.Clear();
             GetExchangeRates();
             XMLFunction();
-            dataGridView1.DataSource = Rates;
-
+            grafikon();
+            
         }
+        public void GetCurrs()
+        {
+            var mnbService = new MNBArfolyamServiceSoapClient();
+            var req = new GetCurrenciesRequestBody();
+            var resp = mnbService.GetCurrencies(req);
+            var result2 = resp.GetCurrenciesResult;
+
+            var xml = new XmlDocument();
+            xml.LoadXml(result2);
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+                var curr = new currs();
+                
+                
+                
+                curr.curr2 = element.GetAttribute("curr");
+                Currencies.Add(curr);
+
+            }
+            rtb2.Text = Currencies.ToString();
+        }
+        
         public void GetExchangeRates()
         {
             var mnbService = new MNBArfolyamServiceSoapClient();
             var request = new GetExchangeRatesRequestBody()
-
             {
                 currencyNames = comboBox1.SelectedItem.ToString(),
-                startDate = dateTimePicker1.Value.ToShortDateString(),
-                endDate = dateTimePicker2.Value.ToShortDateString()
+                startDate = dateTimePicker1.Value.Date.ToString("yyyy-MM-dd"),
+                endDate = dateTimePicker2.Value.Date.ToString("yyyy-MM-dd")
             };
 
             var response = mnbService.GetExchangeRates(request);
-            result = response.GetExchangeRatesResult;
+            var result = response.GetExchangeRatesResult;
+
+            rtb1.Text = result;
         }
 
         public void XMLFunction()
         {
             var xml = new XmlDocument();
-            xml.LoadXml(result);
+            xml.LoadXml(rtb1.Text.ToString());
 
             foreach (XmlElement element in xml.DocumentElement)
             {
@@ -62,6 +98,8 @@ namespace WebService
 
                 // Valuta
                 var childElement = (XmlElement)element.ChildNodes[0];
+                if (childElement == null)
+                    continue;
                 rate.Currency = childElement.GetAttribute("curr");
 
                 // Érték
