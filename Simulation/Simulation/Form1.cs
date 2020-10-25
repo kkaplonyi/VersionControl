@@ -177,7 +177,7 @@ namespace Simulation
 
                 textBox1.Text = path;
             }
-            
+            Population = GetPopulation(@"C:\Program Files (x86)\Temp\nép.csv");
         }
     }
 }
