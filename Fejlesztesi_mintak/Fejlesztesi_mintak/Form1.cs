@@ -31,31 +31,31 @@ namespace Fejlesztesi_mintak
         public Form1()
         {
             InitializeComponent();
-            Factory = new BallFactory();
+            Factory = new CarFactory();
         }
         private void createTimer_Tick(object sender, EventArgs e)
         {
-            var ball = Factory.CreateNew();
-            _toys.Add(ball);
-            ball.Left = -ball.Width;
-            mainPanel.Controls.Add(ball);
+            var toy = Factory.CreateNew();
+            _toys.Add(toy);
+            toy.Left = -toy.Width;
+            mainPanel.Controls.Add(toy);
         }
 
         private void conveyorTimer_Tick(object sender, EventArgs e)
         {
             var maxPosition = 0;
-            foreach (var ball in _toys)
+            foreach (var toy in _toys)
             {
-                ball.MoveToy();
-                if (ball.Left > maxPosition)
-                    maxPosition = ball.Left;
+                toy.MoveToy();
+                if (toy.Left > maxPosition)
+                    maxPosition = toy.Left;
             }
 
             if (maxPosition > 1000)
             {
-                var oldestBall = _toys[0];
-                mainPanel.Controls.Remove(oldestBall);
-                _toys.Remove(oldestBall);
+                var oldestToy = _toys[0];
+                mainPanel.Controls.Remove(oldestToy);
+                _toys.Remove(oldestToy);
             }
         }
 
@@ -69,6 +69,14 @@ namespace Fejlesztesi_mintak
             Factory = new BallFactory
             {
                 BallColor = btnColor.BackColor
+            };
+        }
+        private void btnSelectPresent_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory
+            {
+                ribbon_color = rbn_color.BackColor,
+                box_color = box_color.BackColor
             };
         }
         private void DisplayNext()
@@ -91,5 +99,7 @@ namespace Fejlesztesi_mintak
                 return;
             button.BackColor = colorPicker.Color;
         }
+
+        
     }
 }

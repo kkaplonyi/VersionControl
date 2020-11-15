@@ -36,31 +36,35 @@
             this.btnSelectBall = new System.Windows.Forms.Button();
             this.lblNext = new System.Windows.Forms.Label();
             this.btnColor = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnSelectPresent = new System.Windows.Forms.Button();
+            this.rbn_color = new System.Windows.Forms.Button();
+            this.box_color = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
-            this.mainPanel.Location = new System.Drawing.Point(1, 130);
+            this.mainPanel.Location = new System.Drawing.Point(1, 201);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1281, 227);
+            this.mainPanel.Size = new System.Drawing.Size(1281, 156);
             this.mainPanel.TabIndex = 0;
             // 
             // createTimer
             // 
+            this.createTimer.Enabled = true;
             this.createTimer.Interval = 3000;
+            this.createTimer.Tick += new System.EventHandler(this.createTimer_Tick);
             // 
             // conveyorTimer
             // 
+            this.conveyorTimer.Enabled = true;
             this.conveyorTimer.Interval = 10;
+            this.conveyorTimer.Tick += new System.EventHandler(this.conveyorTimer_Tick);
             // 
             // btnSelectCar
             // 
             this.btnSelectCar.Location = new System.Drawing.Point(27, 24);
             this.btnSelectCar.Name = "btnSelectCar";
-            this.btnSelectCar.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectCar.Size = new System.Drawing.Size(103, 23);
             this.btnSelectCar.TabIndex = 1;
             this.btnSelectCar.Text = "CAR";
             this.btnSelectCar.UseVisualStyleBackColor = true;
@@ -70,7 +74,7 @@
             // 
             this.btnSelectBall.Location = new System.Drawing.Point(178, 24);
             this.btnSelectBall.Name = "btnSelectBall";
-            this.btnSelectBall.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectBall.Size = new System.Drawing.Size(103, 23);
             this.btnSelectBall.TabIndex = 1;
             this.btnSelectBall.Text = "BALL";
             this.btnSelectBall.UseVisualStyleBackColor = true;
@@ -90,48 +94,49 @@
             this.btnColor.BackColor = System.Drawing.Color.Lime;
             this.btnColor.Location = new System.Drawing.Point(178, 53);
             this.btnColor.Name = "btnColor";
-            this.btnColor.Size = new System.Drawing.Size(75, 23);
+            this.btnColor.Size = new System.Drawing.Size(103, 23);
             this.btnColor.TabIndex = 3;
             this.btnColor.UseVisualStyleBackColor = false;
             this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
             // 
-            // button1
+            // btnSelectPresent
             // 
-            this.button1.Location = new System.Drawing.Point(328, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "PRESENT";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSelectPresent.Location = new System.Drawing.Point(328, 24);
+            this.btnSelectPresent.Name = "btnSelectPresent";
+            this.btnSelectPresent.Size = new System.Drawing.Size(103, 23);
+            this.btnSelectPresent.TabIndex = 4;
+            this.btnSelectPresent.Text = "PRESENT";
+            this.btnSelectPresent.UseVisualStyleBackColor = true;
+            this.btnSelectPresent.Click += new System.EventHandler(this.btnSelectPresent_Click);
             // 
-            // button2
+            // rbn_color
             // 
-            this.button2.BackColor = System.Drawing.Color.Lime;
-            this.button2.Location = new System.Drawing.Point(328, 53);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.btnColor_Click);
+            this.rbn_color.BackColor = System.Drawing.Color.Lime;
+            this.rbn_color.Location = new System.Drawing.Point(328, 82);
+            this.rbn_color.Name = "rbn_color";
+            this.rbn_color.Size = new System.Drawing.Size(103, 23);
+            this.rbn_color.TabIndex = 3;
+            this.rbn_color.UseVisualStyleBackColor = false;
+            this.rbn_color.Click += new System.EventHandler(this.btnColor_Click);
             // 
-            // button3
+            // box_color
             // 
-            this.button3.BackColor = System.Drawing.Color.Lime;
-            this.button3.Location = new System.Drawing.Point(328, 82);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.btnColor_Click);
+            this.box_color.BackColor = System.Drawing.Color.Lime;
+            this.box_color.Location = new System.Drawing.Point(328, 53);
+            this.box_color.Name = "box_color";
+            this.box_color.Size = new System.Drawing.Size(103, 23);
+            this.box_color.TabIndex = 3;
+            this.box_color.UseVisualStyleBackColor = false;
+            this.box_color.Click += new System.EventHandler(this.btnColor_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1283, 355);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnSelectPresent);
+            this.Controls.Add(this.box_color);
+            this.Controls.Add(this.rbn_color);
             this.Controls.Add(this.btnColor);
             this.Controls.Add(this.lblNext);
             this.Controls.Add(this.btnSelectBall);
@@ -153,9 +158,9 @@
         private System.Windows.Forms.Button btnSelectBall;
         private System.Windows.Forms.Label lblNext;
         private System.Windows.Forms.Button btnColor;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnSelectPresent;
+        private System.Windows.Forms.Button rbn_color;
+        private System.Windows.Forms.Button box_color;
     }
 }
 
