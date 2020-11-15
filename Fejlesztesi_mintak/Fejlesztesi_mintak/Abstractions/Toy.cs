@@ -23,11 +23,6 @@ namespace Fejlesztesi_mintak.Abstractions
             DrawImage(e.Graphics);
         }
 
-        private void DrawImage(Graphics graphics)
-        {
-            throw new NotImplementedException();
-        }
-
         protected abstract void DrawImage(Graphics g);
 
         public virtual void MoveToy()
@@ -36,4 +31,4 @@ namespace Fejlesztesi_mintak.Abstractions
         }
     }
 }
-}
+
